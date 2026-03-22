@@ -7,10 +7,17 @@ const TELEGRAM_TOKEN = process.env.TELEGRAM_TOKEN;
 const CHAT_ID = process.env.CHAT_ID;
 const ITEMS_FILE = 'items.json';
 
+// Diagnostyka (DEBUG)
+console.log('--- DIAGNOSTYKA ZMIENNYCH ---');
+console.log(`TELEGRAM_TOKEN status: ${TELEGRAM_TOKEN ? 'OK (Załadowano)' : 'BRAK (Undefined/Empty)'}`);
+console.log(`CHAT_ID status:        ${CHAT_ID ? 'OK (Załadowano)' : 'BRAK (Undefined/Empty)'}`);
+console.log('-----------------------------');
+
 if (!TELEGRAM_TOKEN || !CHAT_ID) {
     console.error('❌ BŁĄD KONFIGURACJI:');
     if (!TELEGRAM_TOKEN) console.error('   -> Brak sekretu TELEGRAM_TOKEN');
     if (!CHAT_ID) console.error('   -> Brak sekretu CHAT_ID');
+    console.error('   Upewnij się, że dodałeś je w Settings -> Secrets and variables -> Actions');
     process.exit(1);
 }
 
@@ -193,8 +200,8 @@ async function run() {
 
                     const msg = `📉 <b>SPRZEDANO PRZEDMIOT!</b>\n\n` +
                         `👤 <b>Użytkownik:</b> ${displayTitle}\n` +
-                        `� <b>Nazwa:</b> ${oldData.title}\n` +
-                        `💰 <b>Cena:</b> ${oldData.price}\n` +
+                        `📦 <b>Nazwa:</b> ${oldData.title}\n` +
+                        `� <b>Cena:</b> ${oldData.price}\n` +
                         `⏱ <b>Czas sprzedaży:</b> ${sellDuration}\n` +
                         `📅 <b>Data:</b> ${dateNow} ${timeNow}\n\n` +
                         `🔗 <a href="${item.url}">Profil użytkownika</a>`;
