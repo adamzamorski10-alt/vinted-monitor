@@ -70,7 +70,10 @@ async function checkUrl(url, type) {
                 if (!isSold) {
                     let itemUrl = $(elem).find('a').attr('href');
                     if (itemUrl) {
-                        if (!itemUrl.startsWith('http')) itemUrl = `https://www.vinted.pl${itemUrl}`; // lub .nl w zależności od domeny
+                        if (!itemUrl.startsWith('http')) {
+                            const baseUrl = new URL(url).origin;
+                            itemUrl = `${baseUrl}${itemUrl}`;
+                        }
 
                         const itemTitle = $(elem).find('.item-box__title').text().trim() || $(elem).find('img').attr('alt') || 'Przedmiot bez nazwy';
                         const itemPrice = $(elem).find('.item-box__title-content, .item-box__price').text().trim() || 'Cena nieznana';
@@ -171,6 +174,8 @@ async function run() {
             const previousInventory = item.lastStatus;
             const newInventoryWithDates = { ...previousInventory }; // Kopia starego stanu
 
+            const displayTitle = item.name || result.title;
+
             // 1. Sprawdzamy co ZNIKNĘŁO (SPRZEDAŻ)
             for (const [url, oldData] of Object.entries(previousInventory)) {
                 if (!currentStatus[url]) {
@@ -187,8 +192,8 @@ async function run() {
                     }
 
                     const msg = `📉 <b>SPRZEDANO PRZEDMIOT!</b>\n\n` +
-                        `👤 <b>Użytkownik:</b> ${result.title}\n` +
-                        `📦 <b>Nazwa:</b> ${oldData.title}\n` +
+                        `👤 <b>Użytkownik:</b> ${displayTitle}\n` +
+                        `� <b>Nazwa:</b> ${oldData.title}\n` +
                         `💰 <b>Cena:</b> ${oldData.price}\n` +
                         `⏱ <b>Czas sprzedaży:</b> ${sellDuration}\n` +
                         `📅 <b>Data:</b> ${dateNow} ${timeNow}\n\n` +
@@ -205,7 +210,7 @@ async function run() {
                     newInventoryWithDates[url] = { ...newData, firstSeen: new Date().toISOString() };
 
                     const msg = `🆕 <b>NOWY PRZEDMIOT!</b>\n\n` +
-                        `👤 <b>Użytkownik:</b> ${result.title}\n` +
+                        `👤 <b>Użytkownik:</b> ${displayTitle}\n` +
                         `📦 <b>Nazwa:</b> ${newData.title}\n` +
                         `💰 <b>Cena:</b> ${newData.price}\n` +
                         `📅 <b>Data:</b> ${dateNow} ${timeNow}\n\n` +

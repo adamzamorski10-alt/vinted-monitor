@@ -1,14 +1,16 @@
 [
-  {
-    "url": "https://www.vinted.nl/member/315549506",
-    "type": "user",
-    "lastStatus": {},
-    "addedAt": "2026-03-22T11:12:54.758Z"
-  },
-  {
-    "url": "https://www.vinted.nl/member/90985982",
-    "type": "user",
-    "lastStatus": {},
-    "addedAt": "2026-03-22T11:12:56.182Z"
-  }
+    {
+        "url": "https://www.vinted.nl/member/315549506",
+        "name": "Zetol",
+        "type": "user",
+        "lastStatus": {},
+        "addedAt": "2026-03-22T11:12:54.758Z"
+    },
+    {
+        "url": "https://www.vinted.nl/member/90985982",
+        "name": "Cumonrest",
+        "type": "user",
+        "lastStatus": {},
+        "addedAt": "2026-03-22T11:12:56.182Z"
+    }
 ]
