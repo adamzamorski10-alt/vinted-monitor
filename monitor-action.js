@@ -8,7 +8,9 @@ const CHAT_ID = process.env.CHAT_ID;
 const ITEMS_FILE = 'items.json';
 
 if (!TELEGRAM_TOKEN || !CHAT_ID) {
-    console.error('Brak konfiguracji TELEGRAM_TOKEN lub CHAT_ID');
+    console.error('❌ BŁĄD KONFIGURACJI:');
+    if (!TELEGRAM_TOKEN) console.error('   -> Brak sekretu TELEGRAM_TOKEN');
+    if (!CHAT_ID) console.error('   -> Brak sekretu CHAT_ID');
     process.exit(1);
 }
 

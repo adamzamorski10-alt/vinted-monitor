@@ -1,7 +1,8 @@
 [
-    {
-        "url": "https://www.vinted.pl/member/przykladowy-uzytkownik",
-        "type": "user",
-        "lastStatus": null
-    }
+  {
+    "url": "https://www.vinted.pl/member/przykladowy-uzytkownik",
+    "type": "user",
+    "lastStatus": {},
+    "addedAt": "2026-03-22T10:57:42.586Z"
+  }
 ]
