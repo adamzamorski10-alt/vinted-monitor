@@ -209,7 +209,7 @@ async function run() {
                         `📦 <b>Nazwa:</b> ${newData.title}\n` +
                         `💰 <b>Cena:</b> ${newData.price}\n` +
                         `📅 <b>Data:</b> ${dateNow} ${timeNow}\n\n` +
-                        `🔗 <a href="${item.url}">Profil użytkownika</a>`;
+                        `🔗 <a href="${url}">Zobacz przedmiot</a>`;
                     await sendTelegramMessage(msg);
                 }
             }
