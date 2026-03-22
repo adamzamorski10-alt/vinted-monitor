@@ -1,0 +1,37 @@
+name: Vinted Monitor Check
+
+on:
+  schedule:
+    # Uruchamiaj co 30 minut
+    - cron: '*/30 * * * *'
+  workflow_dispatch: # Pozwala uruchomić ręcznie przyciskiem w GitHub
+
+jobs:
+  check-items:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write # Wymagane, aby action mógł zapisać zaktualizowany items.json
+
+    steps:
+      - name: Checkout repozytorium
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Instalacja zależności
+        run: npm install axios cheerio
+
+      - name: Uruchom Monitor
+        env:
+          TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
+          CHAT_ID: ${{ secrets.CHAT_ID }}
+        run: node monitor-action.js
+
+      - name: Commit zmian (jeśli items.json się zmienił)
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "🤖 Auto-update statusu przedmiotów"
+          file_pattern: "items.json"
